@@ -1,0 +1,205 @@
+/*Height customs*/
+.vh-65{height: 65vh;}
+
+.eh-1{height: 1em;}
+.eh-1R5{height: 1.5em;}
+.eh-2{height: 2em;}
+.eh-2R5{height: 2.5em;}
+.eh-3{height: 3em;}
+.eh-3R5{height: 3.5em;}
+.eh-4{height: 4em;}
+.eh-5{height: 5em;}
+.eh-6{height: 6em;}
+.eh-41R5{height: 41.5em;}
+.eh-41R75{height: 41.75em;}
+
+.h-10{height: 10%;}
+.h-15{height: 15%;}
+.h-20{height: 20%;}
+.h-30{height: 30%;}
+.h-35{height: 35%;}
+.h-40{height: 40%;}
+.h-60{height: 60%;}
+.h-70{height: 70%;}
+.h-80{height: 80%;}
+
+.hc-5 {height: 5%;}
+.hc-10{height: 10%;}
+.hc-15{height: 15%;}
+.hc-20{height: 20%;}
+.hc-30{height: 30%;}
+.hc-35{height: 35%;}
+.hc-40{height: 40%;}
+.hc-60{height: 60%;}
+.hc-70{height: 70%;}
+.hc-80{height: 80%;}
+.hc-85{height: 85%;}
+.hc-95{height: 95%;}
+
+.emnh-2  {min-height: 2em;}
+.emnh-2R5{min-height: 2.5em;}
+
+.emh-40{max-height: 40em;}
+.emh-41{max-height: 41em;}
+.emh-41R5{max-height: 41.5em;}
+.emh-41R75{max-height: 41.75em;}
+/*Width customs*/
+.w-5{width: 5%;}
+.w-10{width: 10%;}
+.w-15{width: 15%;}
+.w-20{width: 20%;}
+.w-30{width: 30%;}
+.w-35{width: 35%;}
+.w-40{width: 40%;}
+.w-60{width: 60%;}
+.w-65{width: 65%;}
+.w-70{width: 70%;}
+.w-80{width: 80%;}
+.w-85{width: 85%;}
+.w-88R5{width: 88.5%;}
+.w-89{width: 89%;}
+.w-89R5{width: 89.5%;}
+.w-90{width: 90%;}
+.w-95{width: 95%;}
+.w-97{width: 97%;}
+
+.mw-65{max-width: 65%;}
+.mw-90{max-width: 90%;}
+/*Customs Font-size*/
+.pfs-0R5{font-size: 0.5em;}
+.pfs-0R85{font-size: 0.85em;}
+.pfs-1{font-size: 1em;}
+.pfs-1R5{font-size: 1.5em;}
+.pfs-2{font-size: 2em;}
+.pfs-2R5{font-size: 2.5em;}
+.pfs-3{font-size: 3em;}
+.pfs-4{font-size: 4em;}
+.pfs-5{font-size: 5em;}
+/*Customs Colors*/
+.bg-custom-success{background: #4BB543;}
+
+.btn-custom-success {
+    color: #fff;
+    background-color: #4BB543;
+    border-color: #4BB543;
+}
+
+.text-custom-success{color: #4BB543;}
+/*Customs Hover-Effects*/
+.hover-invert:hover{  filter: invert(100%) opacity(0.5); cursor: pointer;}
+.hover-bright:hover{filter: brightness(1.2); cursor: pointer;}
+.hover-shadow-text:hover{color: #71b5f9!important; text-shadow: 2px 2px 5px grey!important; cursor: pointer;}
+.hover-shadow-box:hover{color: #71b5f9!important; box-shadow: 2px 2px 5px grey!important; cursor: pointer;}
+/*Custom Positions*/
+.absolute{position: absolute;}
+/*Picture Filters*/
+.mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-attachment: fixed;
+}
+.bg-image {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+}
+.mask-blue {
+  backdrop-filter: contrast(100%) brightness(100%) saturate(100%) sepia(30%) hue-rotate(0deg) grayscale(0%) invert(0%) blur(3px);
+  mix-blend-mode: color-burn;
+  background: rgba(62, 162, 253, 0.5);
+  opacity: 1;
+}
+
+/*Shadow effects*/
+.text-shadow{text-shadow: 0 .5rem 1rem rgba(0,0,0,.15);}
+
+
+/* X-Small devices (portrait phones, less than 576px)*/
+/* No media query for `xs` since this is the default in Bootstrap*/
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px)
+{ 
+	.sm-pfs-1{font-size: 1em;}
+	.sm-pfs-1R5{font-size: 1.5em;}
+	.sm-pfs-2{font-size: 2em;}
+	.sm-pfs-2R5{font-size: 2.5em;}
+	.sm-pfs-3{font-size: 3em;}
+	.sm-pfs-4{font-size: 4em;}
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px)
+{ 
+	.md-pfs-1{font-size: 1em;}
+	.md-pfs-1R5{font-size: 1.5em;}
+	.md-pfs-2{font-size: 2em;}
+	.md-pfs-2R5{font-size: 2.5em;}
+	.md-pfs-3{font-size: 3em;}
+	.md-pfs-4{font-size: 4em;}
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px)
+{ 
+	.lg-pfs-1{font-size: 1em;}
+	.lg-pfs-1R5{font-size: 1.5em;}
+	.lg-pfs-2{font-size: 2em;}
+	.lg-pfs-2R5{font-size: 2.5em;}
+	.lg-pfs-3{font-size: 3em;}
+	.lg-pfs-4{font-size: 4em;}
+
+	.h-lg-100{height: 100%;}
+
+	.w-lg-25{width: 25%;}
+	.w-lg-50{width: 50%;}
+	.w-lg-55{width: 55%;}
+	.w-lg-60{width: 60%;}
+	.w-lg-65{width: 65%;}
+	.w-lg-75{width: 75%;}
+	.w-lg-80{width: 80%;}
+	.w-lg-85{width: 85%;}
+	.w-lg-90{width: 90%;}
+	.w-lg-97{width: 97%;}
+	.w-lg-100{width: 100%;}
+
+	.mw-lg-55{max-width: 55%;}
+	.mw-lg-60{max-width: 60%;}
+	.mw-lg-65{max-width: 65%;}
+	.mw-lg-90{max-width: 90%;}
+}
+
+/* X-Large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px)
+{ 
+	.xl-pfs-1{font-size: 1em!important;}
+	.xl-pfs-1R5{font-size: 1.5em!important;}
+	.xl-pfs-2{font-size: 2em!important;}
+	.xl-pfs-2R5{font-size: 2.5em!important;}
+	.xl-pfs-3{font-size: 3em!important;}
+	.xl-pfs-4{font-size: 4em!important;}
+}
+
+/* XX-Large devices (larger desktops, 1400px and up)*/
+@media (min-width: 1400px)
+{ 
+	.xxl-pfs-1{font-size: 1em!important;}
+	.xxl-pfs-1R5{font-size: 1.5em!important;}
+	.xxl-pfs-2{font-size: 2em!important;}
+	.xxl-pfs-2R5{font-size: 2.5em!important;}
+	.xxl-pfs-3{font-size: 3em!important;}
+	.xxl-pfs-4{font-size: 4em!important;}
+}
+
+@media (max-height: 631px)
+{
+	.hc-2-f2-cor{height: 90%;}
+}

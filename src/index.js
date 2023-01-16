@@ -1,0 +1,62 @@
+'use strict'
+
+const { app, BrowserWindow, contextBridge, ipcMain } = require('electron')
+const remote = require('electron').remote;
+const path = require('path')
+
+// Código porque electron compiler murió :'v
+const devtools = require('./devtools')
+
+if (process.env.NODE_ENV === 'development') {
+  devtools.runDevTools();
+}
+// ------------------------------------------
+
+console.log("Iniciando")
+
+app.on('before-quit', () => {
+  console.log('Saliendo...')
+})
+
+app.on('ready', () => {
+  
+  let win = new BrowserWindow({
+    title: 'Punto de venta',
+    frame: false,
+    center: true,
+    webPreferences: 
+    {
+      nodeIntegration:true,
+      preload: path.join(__dirname, 'preload.js')
+    }
+  })
+
+  
+  ipcMain.on('minimize', () => {
+    win.minimize(); 
+    console.log("minimize");
+  })
+
+  ipcMain.on('maximize', () => {
+    if (!win.isMaximized()) 
+    {
+        win.maximize();            
+    } else {
+        win.unmaximize();
+    }
+    console.log("maximize");
+  })
+
+  // win.removeMenu();
+
+  win.once('ready-to-show', () => {
+    win.show()
+  })
+
+  win.loadURL('file://' + (__dirname) + '/renderer/index.html')
+
+  win.on('closed', () => {
+    win = null
+    app.quit()
+  })
+})

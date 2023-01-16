@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>          
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Faturación</title>
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/colors.css">
+		<link rel="stylesheet" type="text/css" href="css/desktop.css">
+		<link rel="stylesheet" type="text/css" href="css/estilos.css">
+		<link rel="stylesheet" type="text/css" href="css/tailwind.css">
+		<link rel="stylesheet" type="text/css" href="css/animations.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap5/css/bootstrap.min.css">
+	</head>
+  
+	<body class="h-screen bg-light overflow-hidden">
+		<header class="draggable emnh-2 hc-5 d-flex bgc-darkblue text-light justify-content-between align-items-center w-100 eh-2R5 ps-3 pe-1 shadow">
+			<div class="d-flex align-items-center justify-content-center">
+				<svg class="bi mx-2" width="20" height="20" fill="currentColor">
+					<use xlink:href="./img/bootstrap-icons.svg#shop-window" />
+				</svg>
+				<h5 class="m-0"><b>Punto de venta</b></h5>
+			</div>
+			<div class="d-flex align-items-center nondraggable">
+				<svg class="bi me-2 hover:text-gray-400 hover:cursor-pointer" id="minWinButton" width="20" height="20" fill="currentColor">
+					<use xlink:href="./img/bootstrap-icons.svg#dash-lg" />
+				</svg>
+				<svg class="bi me-2 hover:text-gray-400 hover:cursor-pointer" id="maxWinButton" width="20" height="20" fill="currentColor">
+					<use xlink:href="./img/bootstrap-icons.svg#window-fullscreen" />
+				</svg>
+				<svg class="bi hover:text-gray-400 hover:cursor-pointer" id="closeWinButton" width="20" height="20" fill="currentColor">
+					<use xlink:href="./img/bootstrap-icons.svg#x-lg" />
+				</svg>
+			</div>
+		</header>
+    
+		<div class="d-flex pt-2 hc-95 hc-2-f2-cor w-100 overflow-auto">
+
+			<sidebar class="h-100 d-flex flex-column justify-content-between text-light justify-contente-start text-center">
+				
+        <div>
+
+					<div class="d-flex justify-content-start hover:cursor-pointer rounded-end p-0 hover-bright hover:text-slate-900 w-28">
+						<div class="d-flex w-25 align-items-center px-1  bg-slate-400">
+							<span class="fs-5">F1</span>
+						</div>
+						<div class="d-flex flex-column align-items-center justify-content-center w-75  bg-slate-500 rounded-end py-2">
+							<svg class="bi  mx-4" id="closeWinButton" width="20" height="20" fill="currentColor">
+								<use xlink:href="./img/bootstrap-icons.svg#cart4" />
+							</svg>
+							<span>Ventas</span>
+						</div>
+					</div>
+
+					<div class="d-flex justify-content-start hover:cursor-pointer rounded-end p-0 hover-bright hover:text-slate-600 w-28">
+						<div class="d-flex w-25 align-items-center px-1  bg-slate-700">
+							<span class="fs-5">F2</span>
+						</div>
+						<div class="d-flex flex-column align-items-center justify-content-center w-75  bg-slate-800 rounded-end py-2">
+							<svg class="bi  mx-4" id="closeWinButton" width="20" height="20" fill="currentColor">
+								<use xlink:href="./img/bootstrap-icons.svg#box2" />
+							</svg>
+							<span class="px-1">Inventario</span>
+						</div>
+					</div>
+
+					<div class="d-flex justify-content-start hover:cursor-pointer rounded-end p-0 hover-bright hover:text-slate-900 w-28">
+						<div class="d-flex w-25 align-items-center px-1  bg-slate-400">
+							<span class="fs-5">F3</span>
+						</div>
+						<div class="d-flex flex-column align-items-center justify-content-center w-75  bg-slate-500 rounded-end py-2">
+							<svg class="bi  mx-4" id="closeWinButton" width="20" height="20" fill="currentColor">
+								<use xlink:href="./img/bootstrap-icons.svg#cash-stack" />
+							</svg>
+							<span>Caja</span>
+						</div>
+					</div>
+
+					<div class="d-flex justify-content-start hover:cursor-pointer rounded-end p-0 hover-bright hover:text-slate-600 w-28">
+						<div class="d-flex w-25 align-items-center px-1  bg-slate-700">
+							<span class="fs-5">F4</span>
+						</div>
+						<div class="d-flex flex-column align-items-center justify-content-center w-75  bg-slate-800 rounded-end py-2">
+							<svg class="bi  mx-4" id="closeWinButton" width="20" height="20" fill="currentColor">
+								<use xlink:href="./img/bootstrap-icons.svg#people" />
+							</svg>
+							<span class="px-1">Clientes</span>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="pb-2">
+          <div class="d-flex justify-content-start hover:cursor-pointer rounded-end p-0 hover-bright hover:text-slate-900 w-28">
+            <div class="d-flex w-25 align-items-center px-1  bg-cyan-700">
+              <span class="fs-5">F4</span>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-center w-75  bg-cyan-800 rounded-end py-2">
+              <svg class="bi  mx-4" id="closeWinButton" width="20" height="20" fill="currentColor">
+                <use xlink:href="./img/bootstrap-icons.svg#gear-fill" />
+              </svg>
+              <span class="px-1">Config</span>
+            </div>
+          </div>
+        </div>
+			</sidebar>
+		</div>
+		<script src="frontend.js"></script>
+		<script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>
