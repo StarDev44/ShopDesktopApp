@@ -90,6 +90,10 @@
 .hover-bright:hover{filter: brightness(1.2); cursor: pointer;}
 .hover-shadow-text:hover{color: #71b5f9!important; text-shadow: 2px 2px 5px grey!important; cursor: pointer;}
 .hover-shadow-box:hover{color: #71b5f9!important; box-shadow: 2px 2px 5px grey!important; cursor: pointer;}
+
+/*Customs Active-Effects (Active is for example a click)*/
+.active-shadow-box:active{ box-shadow: 2px 2px 5px grey!important;}
+.active-dark:active{filter: brightness(0.5);}
 /*Custom Positions*/
 .absolute{position: absolute;}
 /*Picture Filters*/
