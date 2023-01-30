@@ -9,31 +9,70 @@ db.close();
 
 class localDataBase
 {
-    consruct(path=dataPath)
+    constructor(path=dataPath)
     {
         this.path=path;
     }
-}
 
-function createDatabase(dataPath_)
-{
-    const db =new sqlite3.Database(dataPath_);
+    create()
+    {
+        const db =new sqlite3.Database(this.path);
 
-    db.serialize(() => {
-        db.run("CREATE TABLE lorem (info TEXT)");
-    
-        const stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-        for (let i = 0; i < 10; i++) {
-            stmt.run("Ipsum " + i);
-        }
-        stmt.finalize();
-    
-        db.each("SELECT rowid AS id, info FROM lorem", (err, row) => {
-            console.log(row.id + ": " + row.info);
+        db.close();
+    }
+
+    createTable(name)
+    {
+        const db =new sqlite3.Database(this.path);
+
+        db.serialize(() => {
+
+            db.run("CREATE TABLE "+ name +" (info TEXT)");
+
         });
-    });
 
-    db.close();
+        db.close();
+    }
+
+    insertValues(table,values)
+    {
+        const db =new sqlite3.Database(this.path);
+
+        db.serialize(() => {
+            
+            const stmt = db.prepare("INSERT INTO "+table+" VALUES (?)");
+            
+            for (let row in values) {
+                stmt.run(row);
+            }
+            stmt.finalize();
+        
+        });
+
+        db.close();
+    }
+
+    getAllValues(table)
+    {
+        const db =new sqlite3.Database(this.path);
+
+        db.serialize(() => {
+                    
+            db.each("SELECT rowid AS id, info FROM "+table, (err, row) => {
+                console.log(row.id + ": " + row.info);
+            });
+        });
+
+        db.close();
+    }
+
 }
 
 
+const myDB = new localDataBase(dataPath);
+
+// myDB.createTable("prueba");
+
+myDB.insertValues("prueba",["Row1","Row2","Row1"])
+
+myDB.getAllValues("prueba")
