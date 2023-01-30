@@ -3,9 +3,11 @@
 const { app, BrowserWindow, contextBridge, ipcMain } = require('electron')
 const remote = require('electron').remote;
 const path = require('path')
+const sqlite3Lib = require('./lib/database');
 
 // Código porque electron compiler murió :'v
-const devtools = require('./devtools')
+const devtools = require('./devtools');
+const { Database } = require('sqlite3');
 
 if (process.env.NODE_ENV === 'development') {
   devtools.runDevTools();
@@ -47,7 +49,7 @@ app.on('ready', () => {
     console.log("maximize");
   })
 
-  // win.removeMenu();
+  // win.removeMenu();  wssadasd
 
   win.once('ready-to-show', () => {
     win.show()
@@ -60,3 +62,4 @@ app.on('ready', () => {
     app.quit()
   })
 })
+

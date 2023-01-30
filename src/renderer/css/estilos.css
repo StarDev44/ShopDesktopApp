@@ -63,6 +63,8 @@
 .w-95{width: 95%;}
 .w-97{width: 97%;}
 
+.w-90I{width: 90%!important;}
+
 .mw-65{max-width: 65%;}
 .mw-90{max-width: 90%;}
 /*Customs Font-size*/
@@ -88,14 +90,26 @@
 /*Customs Hover-Effects*/
 .hover-invert:hover{  filter: invert(100%) opacity(0.5); cursor: pointer;}
 .hover-bright:hover{filter: brightness(1.2); cursor: pointer;}
+.hover-dark:hover{filter: brightness(0.5); cursor: pointer;}
 .hover-shadow-text:hover{color: #71b5f9!important; text-shadow: 2px 2px 5px grey!important; cursor: pointer;}
 .hover-shadow-box:hover{color: #71b5f9!important; box-shadow: 2px 2px 5px grey!important; cursor: pointer;}
 
 /*Customs Active-Effects (Active is for example a click)*/
 .active-shadow-box:active{ box-shadow: 2px 2px 5px grey!important;}
 .active-dark:active{filter: brightness(0.5);}
+.active-bright:active{filter: brightness(1.2);}
+
+/* Custom Buttons Effects */
+.button-c-bright:hover{filter: brightness(1.2); cursor: pointer;}
+.button-c-bright:active{filter: brightness(0.5);}
+
+.button-c-dark:hover{filter: brightness(0.5); cursor: pointer;}
+.button-c-dark:active{filter: brightness(0.8);}
+
 /*Custom Positions*/
 .absolute{position: absolute;}
+
+.top-C67{top: 67%;}
 /*Picture Filters*/
 .mask {
     position: absolute;

@@ -24,7 +24,8 @@
     "bootstrap-icons": "^1.10.3",
     "electron-debug": "^3.2.0",
     "electron-reload": "^2.0.0-alpha.1",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "sqlite3": "^5.1.4"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.4",
