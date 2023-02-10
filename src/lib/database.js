@@ -45,7 +45,6 @@ const infoDataDB = {
         "name",
         "price",
         "stock",
-        "category",
         "description"
     ],
     
@@ -80,6 +79,12 @@ const infoDataDB = {
         lastname2:"Final",
         phone:"9999999999",
         email:"@"
+    },
+    productExample : {
+        name:  "Example",
+        price: 10000,
+        stock: 20,
+        description: "An example product"
     }
 }
 
@@ -166,86 +171,66 @@ class localDataBase
 
 }
 
-function clientInsert(data)
+class programDataBase
 {
-    const clientDB = new localDataBase(dataPath);
-    let info = [
-        data.CI,
-        data.name1,
-        data.name2,
-        data.lastname1,
-        data.lastname2,
-        data.phone,
-        data.email
-    ];  
-
-    for (let i = 0; i < info.length; i++)
+    constructor(path=dataPath)
     {
-        info[i] = "'"+info[i]+"'"    
-        
+        this.path=path;
     }
 
-    info = info.join(",");
-
-    console.log(info)
-
-    clientDB.insertValues("gyd_clients",[info],infoDataDB.clientFields.slice(1))
-
-};
-
-function clientInsert(data)
-{
-    const clientDB = new localDataBase(dataPath);
-    let info = [
-        data.CI,
-        data.name1,
-        data.name2,
-        data.lastname1,
-        data.lastname2,
-        data.phone,
-        data.email
-    ];  
-
-    for (let i = 0; i < info.length; i++)
+    clientInsert(data)
     {
-        info[i] = "'"+info[i]+"'"    
-        
-    }
+        const clientDB = new localDataBase(dataPath);
+        let info = [
+            data.CI,
+            data.name1,
+            data.name2,
+            data.lastname1,
+            data.lastname2,
+            data.phone,
+            data.email
+        ];  
 
-    info = info.join(",");
+        for (let i = 0; i < info.length; i++)
+        {
+            info[i] = "'"+info[i]+"'"    
+            
+        }
 
-    console.log(info)
+        info = info.join(",");
 
-    clientDB.insertValues("gyd_clients",[info],infoDataDB.clientFields.slice(1))
+        console.log(info)
 
-};
+        clientDB.insertValues("gyd_clients",[info],infoDataDB.clientFields.slice(1))
 
-function clientInsert(data)
-{
-    const clientDB = new localDataBase(dataPath);
-    let info = [
-        data.CI,
-        data.name1,
-        data.name2,
-        data.lastname1,
-        data.lastname2,
-        data.phone,
-        data.email
-    ];  
+    };
 
-    for (let i = 0; i < info.length; i++)
+    productInsert(data)
     {
-        info[i] = "'"+info[i]+"'"    
-        
-    }
+        const clientDB = new localDataBase(dataPath);
+        let info = [
+            data.name,
+            data.price,
+            data.stock,
+            data.description
+        ];  
 
-    info = info.join(",");
+        for (let i = 0; i < info.length; i++)
+        {
+            info[i] = "'"+info[i]+"'"    
+            
+        }
 
-    console.log(info)
+        info = info.join(",");
 
-    clientDB.insertValues("gyd_clients",[info],infoDataDB.clientFields.slice(1))
+        console.log(info)
 
-};
+        clientDB.insertValues("gyd_products",[info],infoDataDB.productsFields.slice(1))
+
+    };
+
+}
+
 
 const myDB = new localDataBase(dataPath);
 
