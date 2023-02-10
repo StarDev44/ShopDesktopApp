@@ -43,7 +43,7 @@
 		<div class="d-flex pt-2 hc-95 hc-2-f2-cor w-100 overflow-auto">
 			<sidebar class="h-100 d-flex flex-column justify-content-between text-light justify-contente-start text-center">
 				<div>
-					<div class="d-flex justify-content-start select-none hover:cursor-pointer rounded-end p-0 active-dark active-shadow-box hover-bright hover:text-slate-900 w-28">
+					<div id="buttonSales" class="d-flex justify-content-start select-none hover:cursor-pointer rounded-end p-0 active-dark active-shadow-box hover-bright hover:text-slate-900 w-28">
 						<div class="d-flex w-25 align-items-center px-1  bg-slate-400">
 							<span class="fs-5">F1</span>
 						</div>
@@ -54,7 +54,7 @@
 							<span>Ventas</span>
 						</div>
 					</div>
-					<div class="d-flex justify-content-start select-none hover:cursor-pointer rounded-end p-0 active-dark active-shadow-box hover-bright hover:text-slate-600 w-28">
+					<div id="buttonInv" class="d-flex justify-content-start select-none hover:cursor-pointer rounded-end p-0 active-dark active-shadow-box hover-bright hover:text-slate-600 w-28">
 						<div class="d-flex w-25 align-items-center px-1  bg-slate-700">
 							<span class="fs-5">F2</span>
 						</div>
@@ -65,7 +65,7 @@
 							<span class="px-1">Inventario</span>
 						</div>
 					</div>
-					<div class="d-flex justify-content-start select-none hover:cursor-pointer rounded-end p-0 active-dark active-shadow-box hover-bright hover:text-slate-900 w-28">
+					<div id="buttonClients" class="d-flex justify-content-start select-none hover:cursor-pointer rounded-end p-0 active-dark active-shadow-box hover-bright hover:text-slate-900 w-28">
 						<div class="d-flex w-25 align-items-center px-1  bg-slate-400">
 							<span class="fs-5">F3</span>
 						</div>
@@ -76,7 +76,7 @@
 							<span class="px-1">Clientes</span>
 						</div>
 					</div>
-					<div class="d-flex justify-content-start select-none hover:cursor-pointer rounded-end p-0 active-dark active-shadow-box hover-bright hover:text-slate-600 w-28">
+					<div id="buttonCashBox" class="d-flex justify-content-start select-none hover:cursor-pointer rounded-end p-0 active-dark active-shadow-box hover-bright hover:text-slate-600 w-28">
 						<div class="d-flex w-25 align-items-center px-1  bg-slate-700">
 							<span class="fs-5">F4</span>
 						</div>
@@ -89,7 +89,7 @@
 					</div>
 				</div>
 				<div class="mb-2">
-					<div class="d-flex justify-content-start select-none hover:cursor-pointer rounded-end p-0 active-dark active-shadow-box hover-bright hover:text-cyan-900 w-28">
+					<div id="buttonConfig" class="d-flex justify-content-start select-none hover:cursor-pointer rounded-end p-0 active-dark active-shadow-box hover-bright hover:text-cyan-900 w-28">
 						<div class="d-flex w-25 align-items-center px-1  bg-cyan-700">
 							<span class="fs-5">F8</span>
 						</div>
@@ -102,112 +102,12 @@
 					</div>
 				</div>
 			</sidebar>
-			<div class="d-flex flex-column align-items-center w-65">
-				<div class="d-flex w-90 px-1 mb-1 text-white">
-					<span name="titleA" class="d-flex align-items-center justify-content-center text-center rounded-start bg-cyan-600 p-1  w-60 border-end pe-2 fs-6 fw-bold">
-						Venta de Productos
-					</span>
-
-					<span name="ticketName" class="d-flex justify-content-between rounded-end bg-sky-500 p-1 ps-lg-3 ps-xl-5 w-40 fs-6 fw-bold">
-						Ticket # 1234
-						<button class="button-c-bright bg-danger rounded ms-1">
-							<svg class="bi m-0 text-white" id="closeWinButton" width="20" height="20" fill="currentColor">
-								<use xlink:href="./img/bootstrap-icons.svg#x" />
-							</svg>
-						</button>
-					</span>
-				</div>
-				<form id="searchBar" class="d-flex align-items-center justify-content-start w-90" role="search">
-					<div class="me-1 border p-2 rounded-3">
-						<svg class="bi h-100 text-secondary" id="closeWinButton" width="20" height="20" fill="currentColor">
-							<use xlink:href="./img/bootstrap-icons.svg#search" />
-						</svg>
-					</div>
-
-					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-
-					<button type="button" class="btn btn-success ms-auto">
-						<svg class="bi h-100" id="closeWinButton" width="20" height="20" fill="currentColor">
-							<use xlink:href="./img/bootstrap-icons.svg#plus-lg" />
-						</svg>
-					</button>
-				</form>
-
-				<table id="itemList" class="table table-light table-striped mt-3 w-90I">
-					<thead>
-						<tr>
-						  <th scope="col">#</th>
-						  <th scope="col">First</th>
-						  <th scope="col">Last</th>
-						  <th scope="col">Handle</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-						  <th scope="row">1</th>
-						  <td>Mark</td>
-						  <td>Otto</td>
-						  <td>@mdo</td>
-						</tr>
-						<tr>
-						  <th scope="row">2</th>
-						  <td>Jacob</td>
-						  <td>Thornton</td>
-						  <td>@fat</td>
-						</tr>
-						<tr>
-						  <th scope="row">3</th>
-						  <td colspan="2">Larry the Bird</td>
-						  <td>@twitter</td>
-						</tr>
-					</tbody>
-				</table>
-				<div id="totales" class="d-flex justify-content-end w-90I">
-					<table id="itemResume" class="table table-light table-striped mt-3 w-50">
-						<tbody>
-							<tr>
-							  	<td class="fw-bold">Subtotal</td>
-							  	<td>$ 10.00</td>
-							</tr>
-							<tr>
-								<td class="fw-bold">IVA 12%</td>
-							  	<td>$ 1.20</td>
-							</tr>
-							<tr>
-								<td class="fw-bold">Total</td>
-								<td>$11.20</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-			</div>
-			<div class="d-flex flex-column w-35 border-start border-3 px-3">
-				<div class="d-flex flex-column position-relative">
-					<div class="button-c-dark d-flex flex-column justify-content-center align-items-center bg-yellow-100 border-2 border-warning border-start-0 p-2">
-						<div class="d-flex flex-row w-100">
-							<div class="d-flex flex-column border-secondary border-2 rounded ms-1 px-2 py-1 w-100">
-								<span class="w-100 text-left" >Juan Carlos</span>
-								<hr class="mt-0 mb-2">
-								<span class="w-100 text-start" >Consumidor Final</span>
-								<span class="w-100 fw-light fs-6 text-secondary  text-start" >Descripción...</span>
-							</div>
-						</div>
-					</div>
-					<button class="button-c-bright bg-success text-white fw-bold rounded-bottom py-0">
-						Cobrar
-					</button>
-					<button class="button-c-bright position-absolute top-50 start-100 translate-middle h-100 bg-danger ms-1 rounded-end">
-						<svg class="bi m-0 h-100 text-white" id="closeWinButton" width="20" height="20" fill="currentColor">
-							<use xlink:href="./img/bootstrap-icons.svg#x" />
-						</svg>
-					</button>
-					<div class="position-absolute top-50 start-0 translate-middle  bg-light rounded-circle p-2">
-					</div>
-				</div>
+			<div id="contentGUI" class="w-100 d-flex">
+				
 			</div>		
 		</div>
 
+		<script src="jquery.min.js"></script>
 		<script src="frontend.js"></script>
 		<script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
 

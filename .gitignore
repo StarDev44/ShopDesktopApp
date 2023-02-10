@@ -93,4 +93,4 @@ out/
 img
 bootstrap5
 dist
-.sqlite
+*.sqlite
