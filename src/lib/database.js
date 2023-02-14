@@ -1,4 +1,6 @@
-const sqlite3 = require('sqlite3');
+const sqlite3 = require('better-sqlite3');
+const Database = require('better-sqlite3');
+
 const path = require('path');
 const internal = require('stream');
 
@@ -7,9 +9,10 @@ const dataPath = path.join(path.dirname(path.join(__dirname)),"\\data\\file.sqli
 const infoDataDB = {
     productsColumns : [
         "id_product INTEGER PRIMARY KEY NOT NULL",
-        "name varchar(200) UNIQUE",
+        "name varchar(200) NOT NULL UNIQUE",
+        "skull varchar(20) NOT NULL UNIQUE",
         "price int(11)",
-        "stock int(10)",
+        "stock int(10) NOT NULL", 
         "description text(500)"
     ],
     
@@ -43,6 +46,7 @@ const infoDataDB = {
     productsFields : [
         "id_product",
         "name",
+        "skull",
         "price",
         "stock",
         "description"
@@ -82,6 +86,7 @@ const infoDataDB = {
     },
     productExample : {
         name:  "Example",
+        skull: "ABCD000",
         price: 10000,
         stock: 20,
         description: "An example product"
@@ -108,79 +113,96 @@ class localDataBase
 
     create()
     {
-        const db =new sqlite3.Database(this.path);
+        const db =new Database(this.path);
 
         db.close();
     }
     // Columns es un array
     createTable(name,columns)
     {
-        const db =new sqlite3.Database(this.path);
+        const db =new Database(this.path);
 
-        db.serialize(() => {
-
-            db.run("CREATE TABLE "+ name +" ("+columns.join()+")");
-
-        });
+        db.run("CREATE TABLE "+ name +" ("+columns.join()+")");
 
         db.close();
     }
 
     insertValues(table,values,columns)
     {
-        const db =new sqlite3.Database(this.path);
+        const db =new Database(this.path);
 
-        db.serialize(() => {
-            
-            
-            let fields="";
+        let fields="";
 
-            for(let el of values[0].split(",").slice(1))
-            {
-                fields+="?,";
-            }
+        for(let el of values[0].split(",").slice(1))
+        {
+            fields+="?,";
+        }
 
-            fields+="?";
+        fields+="?";
 
-            const stmt = db.prepare("INSERT INTO "+table+" ("+columns.join(",")+") VALUES ("+fields+")");
-            
-            for (let row of values) {
-                let rowInfo=row.split(",");
-                stmt.run(rowInfo);
-            }
-            stmt.finalize();
+        const stmt = db.prepare("INSERT INTO "+table+" ("+columns.join(",")+") VALUES ("+fields+")");
         
-        });
-
+        for (let row of values) {
+            let rowInfo=row.split(",");
+            stmt.run(rowInfo);
+        }
+         
         db.close();
     }
 
-    getAllValues(table)
+    updateRecord(table, column, value, id)
     {
-        const db =new sqlite3.Database(this.path);
+        const db = sqlite3(this.path);
 
-        db.serialize(() => {
-                    
-            db.each("SELECT rowid AS id, info FROM "+table, (err, row) => {
-                console.log(row.id + ": " + row.info);
-            });
-        });
+        const updateRecordSql = 
+        ` UPDATE ${table}
+          SET ${column} = ?
+          WHERE id_product = ?
+        `;
+      
+        db.prepare(updateRecordSql).run(value, id);
 
         db.close();
+    };
+
+    deleteRecord(table, id)
+    {
+
+        const db = sqlite3(this.path);
+        const deleteRecordSql = 
+        `
+          DELETE FROM ${table}
+          WHERE id_product = ?
+        `;
+      
+        db.prepare(deleteRecordSql).run(id);
+        db.close();
+
+    };
+
+    getAllValues(table)
+    {
+        const db =new Database(this.path);
+
+        const stmt      = db.prepare("SELECT * FROM "+table);
+        const dataFound = stmt.all();
+
+        db.close();
+
+        return dataFound;
     }
 
 }
 
-class programDataBase
+class programDataBase extends localDataBase
 {
     constructor(path=dataPath)
     {
-        this.path=path;
+        super(path);
     }
 
     clientInsert(data)
     {
-        const clientDB = new localDataBase(dataPath);
         let info = [
             data.CI,
             data.name1,
@@ -201,15 +223,15 @@ class programDataBase
 
         console.log(info)
 
-        clientDB.insertValues("gyd_clients",[info],infoDataDB.clientFields.slice(1))
+        this.insertValues("gyd_clients",[info],infoDataDB.clientFields.slice(1))
 
     };
 
     productInsert(data)
     {
-        const clientDB = new localDataBase(dataPath);
         let info = [
             data.name,
+            data.skull,
             data.price,
             data.stock,
             data.description
@@ -217,22 +239,39 @@ class programDataBase
 
         for (let i = 0; i < info.length; i++)
         {
-            info[i] = "'"+info[i]+"'"    
+            info[i] = "'"+info[i]+"'";    
             
         }
 
         info = info.join(",");
 
-        console.log(info)
+        console.log(info);
 
-        clientDB.insertValues("gyd_products",[info],infoDataDB.productsFields.slice(1))
+        this.insertValues("gyd_products",[info],infoDataDB.productsFields.slice(1));
 
+    };
+
+    updateProduct(column,value,id)
+    {
+        this.updateRecord("gyd_products",column,value,id);
+    };
+
+    deleteProduct(id)
+    {
+        this.deleteRecord("gyd_products",id);
+    };
+
+    getProducts()
+    {
+        const dataFound = this.getAllValues("gyd_products",infoDataDB.productsFields);
+        return dataFound;
     };
 
 }
 
 
 const myDB = new localDataBase(dataPath);
+const workDataBase = new programDataBase(dataPath);
 
 if(false)
 {
@@ -243,3 +282,6 @@ if(false)
     myDB.createTable("gyd_categories",infoDataDB.categoryColumns);
 }
 
+
+
+exports.programDataBase = programDataBase;

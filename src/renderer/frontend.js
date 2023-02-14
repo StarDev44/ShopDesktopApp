@@ -28,13 +28,13 @@ const sidebarBtns =
 
 sidebarBtns.sales.addEventListener("click",()=>{
 
-     console.log($("#contentGUI").load("./screens/main.html"));
+     $("#contentGUI").load("./screens/main.html");
 
 });
 
 
 sidebarBtns.inventory.addEventListener("click",()=>{
 
-     console.log($("#contentGUI").load("./screens/inventory.html"));
+     $("#contentGUI").load("./screens/inventory.html");
 
 });

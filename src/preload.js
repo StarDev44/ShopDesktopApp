@@ -4,7 +4,9 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    minimize: () => ipcRenderer.send('minimize'),
-    maximize: () => ipcRenderer.send('maximize')
+    minimize:       () => ipcRenderer.send('minimize'),
+    maximize:       () => ipcRenderer.send('maximize'),
+    addProductDB:   (product) => ipcRenderer.send('addProductDB',product),
+    getProductsDB:  () => ipcRenderer.sendSync('getProductsDB')
 })
 

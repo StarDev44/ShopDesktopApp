@@ -7,7 +7,6 @@ const sqlite3Lib = require('./lib/database');
 
 // Código porque electron compiler murió :'v
 const devtools = require('./devtools');
-const { Database } = require('sqlite3');
 
 if (process.env.NODE_ENV === 'development') {
   devtools.runDevTools();
@@ -49,7 +48,21 @@ app.on('ready', () => {
     console.log("maximize");
   })
 
-  // win.removeMenu();  wssadasd
+  ipcMain.on('addProductDB', (event,product) => {
+    const myDB = new sqlite3Lib.programDataBase();
+    
+    myDB.productInsert(product);
+
+    console.log("DB");
+  })
+
+  ipcMain.on('getProductsDB', (event) => {
+    const myDB = new sqlite3Lib.programDataBase();
+    
+    const dataFound = myDB.getProducts();
+
+    event.returnValue = dataFound;
+  })
 
   win.once('ready-to-show', () => {
     win.show()

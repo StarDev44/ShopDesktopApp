@@ -1,3 +1,84 @@
-<div class="d-flex flex-column align-items-center w-65">
+<div class="d-flex flex-column align-items-center w-100">
+    <form id="searchBar" class="d-flex align-items-center justify-content-start w-90" role="search">
+        <div class="me-1 border p-2 rounded-3">
+            <svg class="bi h-100 text-secondary" id="closeWinButton" width="20" height="20" fill="currentColor">
+                <use xlink:href="./img/bootstrap-icons.svg#search" />
+            </svg>
+        </div>
+
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
+        <button type="button" class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#modalAddProduct">
+            <svg class="bi h-100" id="closeWinButton" width="20" height="20" fill="currentColor">
+                <use xlink:href="./img/bootstrap-icons.svg#plus-lg" />
+            </svg>
+        </button>
+    </form>
+
+    <div id="productList">
+
+    </div>
 
 </div>
+
+<!-- Modal Add Product -->
+<div class="modal fade" id="modalAddProduct" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">Agregar Producto</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="mb-3 col-6">
+                            <label for="productName" class="form-label">Nombre:</label>
+                            <input type="text"
+                            class="form-control" name="productName" id="productName" aria-describedby="helpId" placeholder="Example Product">
+                        </div>
+                        
+                        <div class="mb-3 col-6">
+                            <label for="productSku" class="form-label">Código:</label>
+                            <input type="text"
+                            class="form-control" name="productSku" id="productSku" 
+                            aria-describedby="helpId" 
+                            placeholder="0000ABCD">
+                        </div>    
+                    </div>
+                    
+                    <div class="row">
+                        <div class="mb-3 col-6">
+                            <label for="productPrice" class="form-label">Precio:</label>
+                            <input type="text"
+                            class="form-control" name="productPrice" id="productPrice" 
+                            aria-describedby="helpId" 
+                            placeholder="0.00">
+                        </div>
+    
+                        <div class="mb-3 col-6">
+                            <label for="productStock" class="form-label">Stock:</label>
+                            <input type="text"
+                            class="form-control" name="productStock" id="productStock" 
+                            aria-describedby="helpId" 
+                            placeholder="Ejemplo: 20">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="productDescription" class="form-label">Descripción:</label>
+                        <textarea class="form-control" 
+                        name="productDescription" id="productDescription" 
+                        rows="3" placeholder="Descripción..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="addProductBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Crear</button>
+                <!-- <button id="" type="button" class="btn btn-primary">Crear</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/products.js"></script>

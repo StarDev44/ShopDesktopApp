@@ -109,6 +109,10 @@
 /*Custom Positions*/
 .absolute{position: absolute;}
 
+.top-C30{top: 30%;}
+.top-C32{top: 32%;}
+.top-C33{top: 33%;}
+.top-C40{top: 40%;}
 .top-C67{top: 67%;}
 /*Picture Filters*/
 .mask {
