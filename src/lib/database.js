@@ -29,7 +29,6 @@ const infoDataDB = {
     ticketsColumns : [
         "id_ticket INTEGER PRIMARY KEY NOT NULL",
         "id_ticket_client int(11) not null",
-        "skull varchar(20)",
         "date  varchar(30)",
         "bill_info varchar(10)",
         "CONSTRAINT fk_cliente_ticket FOREIGN KEY (id_ticket_client) "+
@@ -37,8 +36,8 @@ const infoDataDB = {
     ],
     categoryColumns: [
         "id_category INTEGER PRIMARY KEY NOT NULL",
+        "id_category_product int(11) not null",        
         "name varchar(20) UNIQUE",
-        "id_category_product int(11) not null",
         "CONSTRAINT fk_cliente_ticket FOREIGN KEY (id_category_product) "+
         "REFERENCES gyd_products (id_product)"
     ],
@@ -66,7 +65,6 @@ const infoDataDB = {
     ticketsFields : [
         "id_ticket",
         "id_ticket_client",
-        "skull",
         "date",
         "bill_info"
     ],
@@ -122,7 +120,7 @@ class localDataBase
     {
         const db =new Database(this.path);
 
-        db.run("CREATE TABLE "+ name +" ("+columns.join()+")");
+        db.exec("CREATE TABLE "+ name +" ("+columns.join()+")");
 
         db.close();
     }
@@ -282,6 +280,6 @@ if(false)
     myDB.createTable("gyd_categories",infoDataDB.categoryColumns);
 }
 
-
+// workDataBase.clientInsert(infoDataDB.clientAnon);
 
 exports.programDataBase = programDataBase;
