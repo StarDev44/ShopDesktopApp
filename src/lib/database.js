@@ -2,6 +2,7 @@ const sqlite3 = require('better-sqlite3');
 const Database = require('better-sqlite3');
 
 const path = require('path');
+const { stringify } = require('querystring');
 const internal = require('stream');
 
 const dataPath = path.join(path.dirname(path.join(__dirname)),"\\data\\file.sqlite");
@@ -227,19 +228,18 @@ class programDataBase extends localDataBase
 
     productInsert(data)
     {
+        let ppp = data.price;
+
+        ppp = Math.round(ppp * 100)
+        ppp = ppp.toString().replace(".","");
+    
         let info = [
             data.name,
             data.skull,
-            data.price,
+            ppp,
             data.stock,
             data.description
         ];  
-
-        for (let i = 0; i < info.length; i++)
-        {
-            info[i] = "'"+info[i]+"'";    
-            
-        }
 
         info = info.join(",");
 

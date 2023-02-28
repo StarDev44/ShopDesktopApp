@@ -29,35 +29,25 @@
         </button>
     </form>
 
-    <table id="itemList" class="table table-light table-striped mt-3 w-90I">
-        <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="itemList" class="d-flex flex-column mt-2 align-items-center justify-content-center w-90">
+
+        <div class="row w-100 mb-1 text-center text-white fw-bold bg-slate-700 p-2 rounded">
+            <div class="d-flex align-items-center justify-content-center col-3">
+                Cantidad
+            </div>
+            <div class="d-flex align-items-center justify-content-center col-3">
+                Descripción
+            </div>
+            <div class="d-flex align-items-center justify-content-center col-3">
+                P. Unidad
+            </div>
+            <div class="d-flex align-items-center justify-content-center col-3">
+                V. Total
+            </div>
+        </div>
+
+    </div>
+
     <div id="totales" class="d-flex justify-content-end w-90I">
         <table id="itemResume" class="table table-light table-striped mt-3 w-50">
             <tbody>
@@ -118,3 +108,5 @@
         </div>
     </div>
 </div>
+
+<script src="js/tickets.js"></script>
