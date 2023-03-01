@@ -14,7 +14,6 @@ document.getElementById("closeWinButton").addEventListener("click", function (e)
      window.close();
 });
 
-
 // Botones SideBar
 
 const sidebarBtns = 

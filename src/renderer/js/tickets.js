@@ -78,9 +78,11 @@ function crearListaDeObjetos(inputId, objetos)
   // Crea un elemento de lista (UL)
   const ul = document.createElement('ul');
 
-  ul.classList.add('bg-white','rounded','py-2','px-0');
+  ul.classList.add('bg-white','border','border-secondary-subtle','rounded','py-2','px-0');
   ul.classList.add("position-absolute");
   ul.classList.add('start-0','end-0');
+
+  ul.setAttribute('id',"itemSearchList");
 
   // Recorre el array de objetos y crea un elemento de lista (LI) para cada objeto
   objetos.forEach(objeto => {
@@ -89,7 +91,19 @@ function crearListaDeObjetos(inputId, objetos)
     li.classList.add("button-c-dark-2");
     li.classList.add('w-100','bg-white','p-3');
 
+    li.setAttribute('itemID',objeto.id);
+
     li.textContent = objeto.name;
+
+    li.addEventListener('click',()=>{
+      addItemToList(objeto,1);
+
+      const element = document.getElementById('itemSearchList');
+      if (element) 
+      {
+        element.remove();
+      }
+    });
 
     ul.appendChild(li);
   });
@@ -98,52 +112,69 @@ function crearListaDeObjetos(inputId, objetos)
   input.parentNode.insertBefore(ul, input.nextSibling);
 }
 
-function filterList(text,id) 
+function filterItemList(text,id) 
 {
-  const list = document.getElementById(id);
-  const rows = list.querySelectorAll(".row");
+  const list  = document.getElementById(id);
+  const rows  = list.querySelectorAll("li");
+
+  let num = 0;
 
   for (const row of rows) 
   {
-    const cols = row.querySelectorAll(".col");
+    const object_= data_B[num];
     let rowMatches = false;
 
-    for (const col of cols) 
+    for(const prop in object_)
     {
-        const props = col.querySelectorAll("div");
-        let colMatches = false;
+      if(`${object_[prop]}`.toLowerCase().includes(text.toLowerCase()))
+      {
+        rowMatches = true;
+        break;
+      }
 
-        for (const prop of props) 
-        {
-          if (prop.textContent.toLowerCase().includes(text.toLowerCase())) 
-          {
-            colMatches = true;
-            rowMatches = true;
-            break;
-          }
-        }
-
-        if (!colMatches) 
-        {
-          col.classList.add("d-none");
-        } 
-        else 
-        {
-          col.classList.remove("d-none");
-        }
     }
 
-    if (!rowMatches)
+    if (rowMatches) 
     {
-      row.classList.add("d-none");
+      row.classList.remove('d-none');
     } 
     else 
     {
-      row.classList.remove("d-none");
+      row.classList.add('d-none');
     }
+    
+    num++;
   }
 }
 
-crearListaDeObjetos('searchBarInput', data_B);
+function ticketListeners() 
+{
+  document.getElementById('searchBarInputMain').addEventListener("focus",function(event){
+    const element = document.getElementById('itemSearchList');
+    if (!element) 
+    {
+      crearListaDeObjetos('searchBarInputMain', data_B);
+    }
+  });
+  
+  $(document).on("click", function(event) {
 
-addItemToList(data_B[5],5);
+    const outItemList  = !$(event.target).closest("#itemSearchList").length;
+    const outSearchBar = !$(event.target).closest("#searchBar").length;
+
+    if (outItemList && outSearchBar) {
+      // El clic se originó fuera del elemento #itemSearchList
+      const element = document.getElementById('itemSearchList');
+      if (element) 
+      {
+        element.remove();
+      }
+
+    }
+  });
+  
+  document.getElementById('searchBarInputMain').addEventListener("keyup",function(event){
+    filterItemList(this.value,'itemSearchList');
+  });
+  
+}
