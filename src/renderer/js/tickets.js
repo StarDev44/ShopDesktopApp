@@ -70,4 +70,80 @@ function addItemToList(item,quantity)
     
 }
 
+function crearListaDeObjetos(inputId, objetos) 
+{
+  // Obtiene el elemento de entrada (INPUT) mediante su ID
+  const input = document.getElementById(inputId);
+
+  // Crea un elemento de lista (UL)
+  const ul = document.createElement('ul');
+
+  ul.classList.add('bg-white','rounded','py-2','px-0');
+  ul.classList.add("position-absolute");
+  ul.classList.add('start-0','end-0');
+
+  // Recorre el array de objetos y crea un elemento de lista (LI) para cada objeto
+  objetos.forEach(objeto => {
+    const li = document.createElement('li');
+
+    li.classList.add("button-c-dark-2");
+    li.classList.add('w-100','bg-white','p-3');
+
+    li.textContent = objeto.name;
+
+    ul.appendChild(li);
+  });
+
+  // Inserta la lista debajo del elemento de entrada (INPUT)
+  input.parentNode.insertBefore(ul, input.nextSibling);
+}
+
+function filterList(text,id) 
+{
+  const list = document.getElementById(id);
+  const rows = list.querySelectorAll(".row");
+
+  for (const row of rows) 
+  {
+    const cols = row.querySelectorAll(".col");
+    let rowMatches = false;
+
+    for (const col of cols) 
+    {
+        const props = col.querySelectorAll("div");
+        let colMatches = false;
+
+        for (const prop of props) 
+        {
+          if (prop.textContent.toLowerCase().includes(text.toLowerCase())) 
+          {
+            colMatches = true;
+            rowMatches = true;
+            break;
+          }
+        }
+
+        if (!colMatches) 
+        {
+          col.classList.add("d-none");
+        } 
+        else 
+        {
+          col.classList.remove("d-none");
+        }
+    }
+
+    if (!rowMatches)
+    {
+      row.classList.add("d-none");
+    } 
+    else 
+    {
+      row.classList.remove("d-none");
+    }
+  }
+}
+
+crearListaDeObjetos('searchBarInput', data_B);
+
 addItemToList(data_B[5],5);
