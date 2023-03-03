@@ -28,6 +28,7 @@ function createItemsList(data, id, columns = 1)
         row = document.createElement("div");
         row.classList.add("row");
         row.classList.add("w-100");
+
         list.appendChild(row);
       }
   
@@ -41,15 +42,19 @@ function createItemsList(data, id, columns = 1)
       itemDiv.classList.add("d-flex");
       itemDiv.classList.add("button-c-dark");
       itemDiv.classList.add("align-items-center");
+      itemDiv.setAttribute('itemID',item.id);
   
       row.appendChild(itemDiv);
   
-      for (const prop of Object.values(item)) 
+      for (const prop in item) 
       {
         const propElement = document.createElement("div");
-        propElement.textContent = prop;
+        propElement.textContent = `${item[prop]}`;
         propElement.style.width = `${Math.floor(100 / numProps)}%`;
         propElement.classList.add("text-center");
+
+        propElement.setAttribute('name',`${prop}`);
+
         itemDiv.appendChild(propElement);
       }
   
@@ -63,11 +68,33 @@ function addItemToList(item,quantity)
         quantity: quantity,
         description: item.name,
         precio: item.price/100,
-        total: quantity*item.price/100
+        total: quantity*item.price/100,
+        id: item.id_product
     }
 
-    createItemsList([data],"itemList");
-    
+    const exists = searchItemID(item.id_product,"itemList");
+
+    if(!exists)
+    {
+      createItemsList([data],"itemList");
+    }
+    else
+    {
+      const element = document.getElementById('itemSearchList');
+      
+      const list     = document.getElementById("itemList");
+      const row      = list.querySelectorAll('[itemid="'+data.id+'"]');
+      const quantity = row[0].querySelectorAll('[name="quantity"]')[0];
+
+      quantity.textContent = parseInt(quantity.textContent)+1;
+
+
+      if (element) 
+      {
+        element.remove();
+      }
+    }
+  
 }
 
 function crearListaDeObjetos(inputId, objetos) 
@@ -85,7 +112,8 @@ function crearListaDeObjetos(inputId, objetos)
   ul.setAttribute('id',"itemSearchList");
 
   // Recorre el array de objetos y crea un elemento de lista (LI) para cada objeto
-  objetos.forEach(objeto => {
+  for(const objeto of objetos)
+  {
     const li = document.createElement('li');
 
     li.classList.add("button-c-dark-2");
@@ -97,16 +125,17 @@ function crearListaDeObjetos(inputId, objetos)
 
     li.addEventListener('click',()=>{
       addItemToList(objeto,1);
-
+      
       const element = document.getElementById('itemSearchList');
       if (element) 
       {
         element.remove();
       }
+
     });
 
     ul.appendChild(li);
-  });
+  };
 
   // Inserta la lista debajo del elemento de entrada (INPUT)
   input.parentNode.insertBefore(ul, input.nextSibling);

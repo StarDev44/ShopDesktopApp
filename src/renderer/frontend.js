@@ -85,3 +85,17 @@ function createList(data, id, columns = 1)
       count++;
     }
   }
+
+  function searchItemID(itemID,idBox) 
+  {
+     const list  = document.getElementById(idBox);
+     const rows  = list.querySelectorAll('[itemid="'+itemID+'"]');
+
+     if(rows.length > 0)
+     {
+          return true;
+     }
+
+     return false;
+     
+  }
