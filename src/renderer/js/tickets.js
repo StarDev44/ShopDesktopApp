@@ -15,7 +15,7 @@ const billHead = {
     total:"Valor Total"
 };
 
-function createItemsList(data, id, columns = 1) 
+function createItemsList(data, id, columns = 1,itemID=null) 
 {
     const list = document.getElementById(id);
     let row = null;
@@ -37,12 +37,12 @@ function createItemsList(data, id, columns = 1)
       itemDiv.classList.add("col");
       itemDiv.classList.add("bg-white");
       itemDiv.classList.add("rounded");
-      itemDiv.classList.add("p-3");
+      itemDiv.classList.add("p-1");
       itemDiv.classList.add("mb-1");
       itemDiv.classList.add("d-flex");
       itemDiv.classList.add("button-c-dark");
       itemDiv.classList.add("align-items-center");
-      itemDiv.setAttribute('itemID',item.id);
+      itemDiv.setAttribute('itemID',itemID);
   
       row.appendChild(itemDiv);
   
@@ -67,26 +67,28 @@ function addItemToList(item,quantity)
     const data = {
         quantity: quantity,
         description: item.name,
-        precio: item.price/100,
+        price: item.price/100,
         total: quantity*item.price/100,
-        id: item.id_product
     }
 
     const exists = searchItemID(item.id_product,"itemList");
 
     if(!exists)
     {
-      createItemsList([data],"itemList");
+      createItemsList([data],"itemList",1,item.id_product);
+      $("#debugMss").text(item.id_product)
     }
     else
     {
       const element = document.getElementById('itemSearchList');
       
       const list     = document.getElementById("itemList");
-      const row      = list.querySelectorAll('[itemid="'+data.id+'"]');
+      const row      = list.querySelectorAll('[itemid="'+item.id_product+'"]');
       const quantity = row[0].querySelectorAll('[name="quantity"]')[0];
+      const total    = row[0].querySelectorAll('[name="total"]')[0];
 
       quantity.textContent = parseInt(quantity.textContent)+1;
+      total.textContent    = parseFloat(total.textContent)+data.price;
 
 
       if (element) 
@@ -117,7 +119,7 @@ function crearListaDeObjetos(inputId, objetos)
     const li = document.createElement('li');
 
     li.classList.add("button-c-dark-2");
-    li.classList.add('w-100','bg-white','p-3');
+    li.classList.add('w-100','bg-white','p-1');
 
     li.setAttribute('itemID',objeto.id);
 
