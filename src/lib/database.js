@@ -30,8 +30,10 @@ const infoDataDB = {
     ticketsColumns : [
         "id_ticket INTEGER PRIMARY KEY NOT NULL",
         "id_ticket_client int(11) not null",
+        "title  varchar(30)",
         "date  varchar(30)",
         "bill_info varchar(10)",
+        "description text(500)",
         "CONSTRAINT fk_cliente_ticket FOREIGN KEY (id_ticket_client) "+
         "REFERENCES gyd_clients (id_client)"
     ],
@@ -66,8 +68,10 @@ const infoDataDB = {
     ticketsFields : [
         "id_ticket",
         "id_ticket_client",
+        "title",
         "date",
-        "bill_info"
+        "bill_info",
+        "description"
     ],
     categoryFields : [
         "id_category",

@@ -32,21 +32,21 @@
     </form>
 
     <div class="d-flex mt-2 align-items-center justify-content-center w-90 mb-1 text-center text-white fw-bold bg-slate-700 p-2 rounded">
-        <div class="d-flex justify-content-center align-items-center col-3">
+        <div class="d-flex text-center justify-content-center align-items-center col-3">
             Cantidad
         </div>
-        <div class="d-flex justify-content-center align-items-center col-3">
+        <div class="d-flex text-center justify-content-center align-items-center col-3">
             Descripción
         </div>
-        <div class="d-flex justify-content-center align-items-center col-3">
+        <div class="d-flex text-center justify-content-center align-items-center col-3">
             P. Unidad
         </div>
-        <div class="d-flex justify-content-center align-items-center col-3">
+        <div class="d-flex text-center justify-content-center align-items-center col-3">
             V. Total
         </div>
     </div>
 
-    <div id="itemList" class="d-flex flex-column align-items-center w-90 overflow-auto">
+    <div id="itemList" class="d-flex flex-column flex-grow-1 align-items-center w-90 overflow-auto">
 
     </div>
 
@@ -55,15 +55,15 @@
             <tbody>
                 <tr>
                       <td class="fw-bold">Subtotal</td>
-                      <td>$ 10.00</td>
+                      <td>$ <span id="priceSummary">-</span></td>
                 </tr>
                 <tr>
                     <td class="fw-bold">IVA 12%</td>
-                      <td>$ 1.20</td>
+                      <td>$ <span id="ivaSummary">-</span></td>
                 </tr>
                 <tr>
                     <td class="fw-bold">Total</td>
-                    <td>$11.20</td>
+                    <td>$ <span id="totalSummary">-</span></td>
                 </tr>
             </tbody>
         </table>
@@ -76,18 +76,18 @@
             </svg>
         </div>
 
-        <div class="bg-dark button-c-dark me-1 border p-2 rounded-3">
+        <div class="bg-dark button-c-dark me-1 border p-2 rounded-3" data-bs-toggle="modal" data-bs-target="#ticketWithData">
             <span>Ticket con Datos</span>
         </div>
 
-        <div class="bg-primary button-c-dark me-1 border p-2 rounded-3">
+        <div class="bg-primary button-c-dark me-1 border p-2 rounded-3" data-bs-toggle="modal" data-bs-target="#ticketWithoutData">
             <span>Ticket Consumidor Final</span>
         </div>
     </div>
 
 </div>
-<div class="d-flex flex-column w-35 border-start border-3 px-3">
-    <div class="d-flex flex-column position-relative">
+<div id="ticketList" class="d-flex flex-column w-35 border-start border-3 px-3 overflow-auto">
+    <div class="d-flex flex-column mb-1 position-relative">
         <div class="button-c-dark d-flex flex-column justify-content-center align-items-center bg-yellow-100 border-2 border-warning border-start-0 p-2">
             <div class="d-flex flex-row w-100">
                 <div class="d-flex flex-column border-secondary border-2 rounded ms-1 px-2 py-1 w-100">
@@ -109,7 +109,70 @@
         <div class="position-absolute top-C40 start-0 translate-middle  bg-light rounded-circle p-2">
         </div>
     </div>
+    
 </div>
+
+<!-- Modal Body -->
+<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+<div class="modal fade" id="ticketWithoutData" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">Guardar Ticket</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                  <label for="" class="form-label">Título</label>
+                  <input type="text"
+                    class="form-control" name="title" id="ticketCFTitle" aria-describedby="helpId" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Descripción</label>
+                    <input type="text"
+                      class="form-control" name="description" id="ticketCFDescription" aria-describedby="helpId" placeholder="">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modalSaveButton" type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Body -->
+<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+<div class="modal fade" id="ticketWithData" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">Guardar Ticket</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                  <label for="" class="form-label">Título</label>
+                  <input type="text"
+                    class="form-control" name="title" id="ticketTitle" aria-describedby="helpId" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">CI</label>
+                    <input type="text"
+                      class="form-control" name="ci" id="ticketCI" aria-describedby="helpId" placeholder="">
+                  </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Descripción</label>
+                    <input type="text"
+                      class="form-control" name="description" id="ticketDescription" aria-describedby="helpId" placeholder="">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal" id="modal2SaveButton">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="js/tickets.js"></script>
 <script>

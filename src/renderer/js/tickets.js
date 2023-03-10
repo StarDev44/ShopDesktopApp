@@ -1,4 +1,19 @@
-const data_B = window.electronAPI.getProductsDB();
+const data_B        = window.electronAPI.getProductsDB();
+
+let actualTicketIndex = 0;
+
+let mainTicketData  = [];
+
+const emptyTicket = {
+  items: [],
+  date: Date.now(),
+  id: "",
+  client: "",
+  billInfo: "",
+  description: ""
+}
+
+mainTicketData.push(emptyTicket);
 
 const productExample =  {
     name:  "Example",
@@ -64,6 +79,8 @@ function createItemsList(data, id, columns = 1,itemID=null)
 
 function addItemToList(item,quantity)
 {
+    let finalQuantity = 1;
+
     const data = {
         quantity: quantity,
         description: item.name,
@@ -76,7 +93,6 @@ function addItemToList(item,quantity)
     if(!exists)
     {
       createItemsList([data],"itemList",1,item.id_product);
-      $("#debugMss").text(item.id_product)
     }
     else
     {
@@ -87,7 +103,8 @@ function addItemToList(item,quantity)
       const quantity = row[0].querySelectorAll('[name="quantity"]')[0];
       const total    = row[0].querySelectorAll('[name="total"]')[0];
 
-      quantity.textContent = parseInt(quantity.textContent)+1;
+      finalQuantity        = parseInt(quantity.textContent)+1;
+      quantity.textContent = finalQuantity;
       total.textContent    = parseFloat(total.textContent)+data.price;
 
 
@@ -95,6 +112,29 @@ function addItemToList(item,quantity)
       {
         element.remove();
       }
+      
+    }
+
+    let dataFound = false;
+
+    for (let dat of mainTicketData[actualTicketIndex].items) 
+    {
+      if(dat.id == item.id_product)
+      {
+        dat.quantity = finalQuantity;
+        dataFound = true;
+        break;
+      }
+      
+    }
+
+    if(!dataFound)
+    {
+      mainTicketData[actualTicketIndex].items.push(
+      {
+        quantity: finalQuantity,
+        id: item.id_product
+      });
     }
   
 }
@@ -134,6 +174,21 @@ function crearListaDeObjetos(inputId, objetos)
         element.remove();
       }
 
+      //Aquí sumamos los valores de la lista
+
+      const list     = document.getElementById("itemList");
+      const row      = list.querySelectorAll('.row');
+      let summary    = 0;
+      
+      for(const ob of row)
+      {
+        const total    = ob.querySelectorAll('[name="total"]')[0];
+        summary       += parseFloat(total.textContent);
+      }
+      
+      document.getElementById("priceSummary").textContent = Math.round(summary*100)/100;
+      document.getElementById("ivaSummary").textContent   = Math.round(summary*0.12*100)/100;
+      document.getElementById("totalSummary").textContent = Math.round(summary*1.12*100)/100;
     });
 
     ul.appendChild(li);
@@ -207,5 +262,108 @@ function ticketListeners()
   document.getElementById('searchBarInputMain').addEventListener("keyup",function(event){
     filterItemList(this.value,'itemSearchList');
   });
+
+  document.getElementById('modalSaveButton').addEventListener("click",()=>{
+    addTicketToList({
+      items: [],
+      date: Date.now(),
+      id: "",
+      title: $("#ticketCFTitle").val(),
+      client: "Consumidor Final",
+      billInfo: "",
+      description: $("#ticketCFDescription").val()
+    });
+    
+  });
   
 }
+
+function addTicketToList(ticketInfo,containerID="ticketList")
+{
+  // Crear el elemento contenedor
+  let contenedor = document.createElement("div");
+  contenedor.classList.add("d-flex", "flex-column", "mb-1", "position-relative");
+
+  // Crear el elemento principal
+  let elementoPrincipal = document.createElement("div");
+  elementoPrincipal.classList.add("button-c-dark", "d-flex", "flex-column")
+  elementoPrincipal.classList.add( "justify-content-center", "align-items-center")
+  elementoPrincipal.classList.add( "bg-yellow-100", "border-2", "border-warning")
+  elementoPrincipal.classList.add( "border-start-0", "p-2");
+
+  // Crear el elemento interno
+  let elementoInterno = document.createElement("div");
+  elementoInterno.classList.add("d-flex", "flex-row", "w-100");
+
+  let elementoInternoInterno = document.createElement("div");
+  elementoInternoInterno.classList.add("d-flex", "flex-column", "border-secondary")
+  elementoInternoInterno.classList.add( "border-2", "rounded", "ms-1", "px-2", "py-1", "w-100");
+
+  let spanNombre = document.createElement("span");
+  spanNombre.classList.add("w-100", "text-left");
+  spanNombre.textContent = ticketInfo.title;
+
+  let hr = document.createElement("hr");
+  hr.classList.add("mt-0", "mb-2");
+
+  let spanCategoria = document.createElement("span");
+  spanCategoria.classList.add("w-100", "text-start");
+  spanCategoria.textContent = ticketInfo.client;
+
+  let spanDescripcion = document.createElement("span");
+  spanDescripcion.classList.add("w-100", "fw-light", "fs-6", "text-secondary", "text-start");
+  spanDescripcion.textContent = ticketInfo.description;
+
+  elementoInternoInterno.appendChild(spanNombre);
+  elementoInternoInterno.appendChild(hr);
+  elementoInternoInterno.appendChild(spanCategoria);
+  elementoInternoInterno.appendChild(spanDescripcion);
+
+  elementoInterno.appendChild(elementoInternoInterno);
+
+  elementoPrincipal.appendChild(elementoInterno);
+
+  // Crear el botón "Cobrar"
+  let botonCobrar = document.createElement("button");
+  botonCobrar.classList.add("button-c-bright", "bg-success");
+  botonCobrar.classList.add("text-white", "fw-bold", "rounded-bottom", "py-0");
+  botonCobrar.innerHTML = "Cobrar";
+
+  // Crear el botón "Cerrar"
+  let botonCerrar = document.createElement("button");
+  botonCerrar.classList.add("button-c-bright", "position-absolute", "top-50")
+  botonCerrar.classList.add("start-100", "translate-middle", "h-100")
+  botonCerrar.classList.add("bg-danger", "ms-1", "rounded-end");
+
+  botonCerrar.innerHTML = `
+  <svg class="bi m-0 h-100 text-white" id="closeWinButton" width="20" height="20" fill="currentColor">
+    <use xlink:href="./img/bootstrap-icons.svg#x" />
+  </svg>`;
+  
+  // Crear el elemento circular
+  let elementoCircular = document.createElement("div");
+  elementoCircular.classList.add("position-absolute", "top-C40", "start-0")
+  elementoCircular.classList.add("translate-middle", "bg-light", "rounded-circle", "p-2");
+
+  // Agregar los elementos creados al contenedor
+  contenedor.appendChild(elementoPrincipal);
+  contenedor.appendChild(botonCobrar);
+  contenedor.appendChild(botonCerrar);
+  contenedor.appendChild(elementoCircular);
+  
+  // Agregar el contenedor al elemento del DOM especificado por su ID
+  let contenedorPadre = document.getElementById(containerID);
+  contenedorPadre.appendChild(contenedor);
+}
+
+let nnn =0;
+function updateMssDebug() 
+{
+  $("#debugMss").text(JSON.stringify(mainTicketData[0])+nnn);
+  nnn++;
+}
+
+setInterval(() => {
+  updateMssDebug();
+}, 2000 );
+
