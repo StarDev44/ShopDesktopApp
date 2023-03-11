@@ -51,7 +51,7 @@ app.on('ready', () => {
   ipcMain.on('addProductDB', (event,product) => {
     const myDB = new sqlite3Lib.programDataBase();
     
-    myDB.productInsert(product);
+    myDB.products.insert(product);
 
     console.log("DB");
   })
@@ -59,7 +59,7 @@ app.on('ready', () => {
   ipcMain.on('getProductsDB', (event) => {
     const myDB = new sqlite3Lib.programDataBase();
     
-    const dataFound = myDB.getProducts();
+    const dataFound = myDB.products.get();
 
     event.returnValue = dataFound;
   })
