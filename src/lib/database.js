@@ -51,7 +51,8 @@ const infoDataDB = {
         "CONSTRAINT fk_pt_product FOREIGN KEY (id_pt_product) "+
         "REFERENCES gyd_products (id_product)",
         "CONSTRAINT fk_pt_ticket FOREIGN KEY (id_pt_ticket) "+
-        "REFERENCES gyd_tickets (id_ticket)"
+        "REFERENCES gyd_tickets (id_ticket)",
+        "PRIMARY KEY(id_pt_product,id_pt_ticket)"
     ],
 
     productsFields : [
@@ -139,7 +140,16 @@ class localDataBase
     {
         const db =new Database(this.path);
 
-        db.exec("CREATE TABLE "+ name +" ("+columns.join()+")");
+        db.exec("CREATE TABLE IF NOT EXISTS "+ name +" ("+columns.join()+")");
+
+        db.close();
+    }
+
+    removeTable(name)
+    {
+        const db =new Database(this.path);
+
+        db.exec("DROP TABLE "+ name );
 
         db.close();
     }
@@ -330,21 +340,14 @@ class ticketsDB extends localDataBase
     };
 }
 
-class programDataBase extends localDataBase
+class productsTicketsDB extends localDataBase
 {
-    constructor(path=dataPath)
-    {
-        super(path);
-        this.clients    = new clientsDB(dataPath);
-        this.products   = new productsDB(dataPath);
-        this.tickets    = new ticketsDB(dataPath);
-    }
-
     //Products-Tickets Functions:
-    productTicketInsert(data)
+    insert(data)
     {
  
         let info = [
+            data.productID,
             data.ticketID,
             data.quantity
         ];  
@@ -353,25 +356,37 @@ class programDataBase extends localDataBase
 
         console.log(info);
 
-        this.insertValues("gyd_products_tickets",[info],infoDataDB.productsTickets.slice(1));
+        this.insertValues("gyd_products_tickets",[info],infoDataDB.productsTicketsFields);
 
     };
 
-    updateProductTicket(column,value,id)
+    update(column,value,id)
     {
         this.updateRecord("gyd_products_tickets",column,value,id);
     };
 
-    deleteProductTicket(id)
+    delete(id)
     {
         this.deleteRecord("gyd_products_tickets",id);
     };
 
-    getProductTicket()
+    get()
     {
         const dataFound = this.getAllValues("gyd_products_tickets",infoDataDB.ticketsFields);
         return dataFound;
     };
+}
+
+class programDataBase extends localDataBase
+{
+    constructor(path=dataPath)
+    {
+        super(path);
+        this.clients         = new clientsDB(dataPath);
+        this.products        = new productsDB(dataPath);
+        this.tickets         = new ticketsDB(dataPath);
+        this.productsTickets = new productsTicketsDB(dataPath);
+    }
 
 }
 
@@ -379,9 +394,7 @@ class programDataBase extends localDataBase
 const myDB = new localDataBase(dataPath);
 const workDataBase = new programDataBase(dataPath);
 
-// workDataBase.ticketInsert({ticketID:1,quantity:10})
-
-if(false)
+if(true)
 {
     myDB.create();
     myDB.createTable("gyd_products",infoDataDB.productsColumns);
@@ -391,6 +404,6 @@ if(false)
     myDB.createTable("gyd_products_tickets",infoDataDB.productsTicketsColumns);
 }
 
-// workDataBase.clientInsert(infoDataDB.clientAnon);
+workDataBase.productsTickets.insert({productID:3,ticketID:2,quantity:3})
 
 exports.programDataBase = programDataBase;

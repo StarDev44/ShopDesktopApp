@@ -359,7 +359,7 @@ function addTicketToList(ticketInfo,containerID="ticketList")
 let nnn =0;
 function updateMssDebug() 
 {
-  $("#debugMss").text(JSON.stringify(mainTicketData[0])+nnn);
+  $("#debugMss").text(Date.now());
   nnn++;
 }
 
